@@ -36,7 +36,6 @@ class LAC:
         if self.device is None:
             raise Exception("No board found, ensure board is connected and powered and matching the IDs provided")
         self.device.reset()
-        print("Before reset")
         self.device.set_configuration()
 
     # Take data and send it to LAC
