@@ -8,24 +8,90 @@ import logging
 class Incubator:
 
     def open(self):
-        self.set_position(1010)
+        try:
+          self.set_position(1000)
+          response = {"status": "OK",
+                      "value": "",
+                      "details": "Executed command OK"}
+
+        except Exception as e:
+          logging.error(traceback.format_exc())
+          logging.error(e)
+          response = [{"status": "ERROR",
+                        "value": "",
+                        "details": "See log for traceback"}]
+            
+        finally:
+          logging.debug('Done finally')
+          return response 
 
     def close(self):
-        self.set_position(5)
+        try:
+          self.set_position(5)
+          response = {"status": "OK",
+                      "value": "",
+                      "details": "Executed command OK"}
+
+        except Exception as e:
+          logging.error(traceback.format_exc())
+          logging.error(e)
+          response = [{"status": "ERROR",
+                        "value": "",
+                        "details": "See log for traceback"}]
+
+        finally:
+          logging.debug('Done finally')
+          return response
 
     def is_open(self):
-        position = self.get_position()
-        if(position > 1000):
-            return True
-        else:
-            return False
+        try:
+         
+          position = self.get_position()
+          if(position > 990):
+            door_open = True
+          else:
+            door_open = False
+
+          response = {"status": "OK",
+                      "value": door_open,
+                      "details": ""}
+
+        except Exception as e:
+          logging.error(traceback.format_exc())
+          logging.error(e)
+          response = [{"status": "ERROR",
+                        "value": "",
+                        "details": "See log for traceback"}]
+
+        finally:
+          logging.debug('Done finally')
+          return response
 
     def is_closed(self):
-        position = self.get_position()
-        if(position < 10):
-            return True
-        else:
-            return False
+        try:
+
+          position = self.get_position()
+          if(position < 10):
+            door_closed = True
+          else:
+            door_closed = False
+
+          response = {"status": "OK",
+                      "value": door_closed,
+                      "details": ""}
+
+        except Exception as e:
+          logging.error(traceback.format_exc())
+          logging.error(e)
+          response = [{"status": "ERROR",
+                        "value": "",
+                        "details": "See log for traceback"}]
+
+        finally:
+          logging.debug('Done finally')
+          return response
+
+
 
     def set_position(self, position):
         # 0 = 0, 1023 = 200mm 5 pos 1mm
