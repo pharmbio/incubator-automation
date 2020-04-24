@@ -91,6 +91,29 @@ class Incubator:
           logging.debug('Done finally')
           return response
 
+    def is_ready(self):
+        try:
+
+          position = self.get_position()
+          if(position >= 0):
+            incubator_ready = True
+          else:
+            incubator_ready = False
+
+          response = {"status": "OK",
+                      "value": incubator_ready,
+                      "details": ""}
+
+        except Exception as e:
+          logging.error(traceback.format_exc())
+          logging.error(e)
+          response = [{"status": "ERROR",
+                        "value": "",
+                        "details": "See log for traceback"}]
+
+        finally:
+          logging.debug('Done finally')
+          return response
 
 
     def set_position(self, position):
