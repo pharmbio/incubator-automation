@@ -4,6 +4,9 @@
 import struct
 import usb.core
 import time
+import traceback
+import logging
+import sys
 
 class LAC:
     SET_ACCURACY                = 0x01
@@ -32,8 +35,14 @@ class LAC:
     RESET                       = 0xFF
 
     def __init__(self, vendorID=0x4D8, productID=0xFC5F):
+        dev = usb.core.find(find_all=True)
+        # loop through devices, printing vendor and product ids in decimal and hex
+        for cfg in dev:
+          logging.info('Hexadecimal VendorID=' + hex(cfg.idVendor) + ' & ProductID=' + hex(cfg.idProduct))
+
         self.device = usb.core.find(idVendor=vendorID, idProduct=productID)  # Defaults for our LAC; give yours a test
         if self.device is None:
+            logging.error("self.device is None")
             raise Exception("No board found, ensure board is connected and powered and matching the IDs provided")
         self.device.reset()
         self.device.set_configuration()

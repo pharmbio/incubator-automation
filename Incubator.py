@@ -2,12 +2,14 @@
 import lac
 import sys
 import logging
+import traceback
 
 # 46mm/s (no load)
 
 class Incubator:
 
     def open(self):
+        response = []
         try:
           self.set_position(1000)
           response = {"status": "OK",
@@ -26,6 +28,7 @@ class Incubator:
           return response 
 
     def close(self):
+        response = []
         try:
           self.set_position(5)
           response = {"status": "OK",
@@ -44,6 +47,7 @@ class Incubator:
           return response
 
     def is_open(self):
+        response = []
         try:
          
           position = self.get_position()
@@ -68,6 +72,7 @@ class Incubator:
           return response
 
     def is_closed(self):
+        response = []
         try:
 
           position = self.get_position()
@@ -92,6 +97,7 @@ class Incubator:
           return response
 
     def is_ready(self):
+        response = []
         try:
 
           position = self.get_position()
